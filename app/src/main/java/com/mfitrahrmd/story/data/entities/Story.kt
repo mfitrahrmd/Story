@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.entities
+package com.mfitrahrmd.story.data.entities
 
 import java.util.Date
 
