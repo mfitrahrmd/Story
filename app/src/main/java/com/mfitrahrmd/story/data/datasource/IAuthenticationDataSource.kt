@@ -1,5 +1,6 @@
 package com.mfitrahrmd.story.data.datasource
 
+import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.entities.User
 
 interface IAuthenticationDataSource {

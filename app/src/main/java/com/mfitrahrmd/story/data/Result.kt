@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.data.datasource
+package com.mfitrahrmd.story.data
 
 sealed interface Result<out T : Any> {
     data class Success<T : Any>(val data: T) : Result<T>
