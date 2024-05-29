@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -16,10 +17,13 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
     }
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
     buildTypes {
         release {
@@ -40,12 +44,16 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.room.paging)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.jetbrains.kotlinx.coroutines.core)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
