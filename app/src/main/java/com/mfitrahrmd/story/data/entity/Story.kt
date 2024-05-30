@@ -8,6 +8,6 @@ data class Story(
     val description: String,
     val photoUrl: String,
     val createdAt: Date,
-    val lat: Float,
-    val lon: Float
+    val lat: Float?,
+    val lon: Float?
 )

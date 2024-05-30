@@ -1,7 +1,7 @@
 package com.mfitrahrmd.story.data.datasource.remote
 
-import com.mfitrahrmd.story.data.datasource.IAuthenticationDataSource
 import com.mfitrahrmd.story.data.Result
+import com.mfitrahrmd.story.data.datasource.IAuthenticationDataSource
 import com.mfitrahrmd.story.data.datasource.remote.services.NetworkResponse
 import com.mfitrahrmd.story.data.datasource.remote.services.RemoteService
 import com.mfitrahrmd.story.data.entity.User
@@ -26,7 +26,14 @@ class AuthenticationRemoteDataSource private constructor(
         return when (result) {
             is NetworkResponse.ApiError -> Result.Failed(result.body.message)
             is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(User.Account(userAccount.email, userAccount.password, result.body.loginResult.token))
+            is NetworkResponse.Success -> Result.Success(
+                User.Account(
+                    userAccount.email,
+                    userAccount.password,
+                    result.body.loginResult.token
+                )
+            )
+
             is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
         }
     }
@@ -36,7 +43,7 @@ class AuthenticationRemoteDataSource private constructor(
         private var INSTANCE: AuthenticationRemoteDataSource? = null
 
         fun getInstance(remoteService: RemoteService): AuthenticationRemoteDataSource {
-            return INSTANCE ?:  synchronized(this) {
+            return INSTANCE ?: synchronized(this) {
                 val instance = AuthenticationRemoteDataSource(remoteService)
                 INSTANCE = instance
 

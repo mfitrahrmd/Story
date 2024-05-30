@@ -12,7 +12,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
-class StoryRemoteDataSource(
+class StoryRemoteDataSource private constructor(
     private val remoteService: RemoteService
 ) : IStoryDataSource {
     override suspend fun createStory(story: Story, photo: File): Result<Boolean> {
@@ -21,7 +21,8 @@ class StoryRemoteDataSource(
         val latBody = story.lat.toString().toRequestBody("text/plain".toMediaType())
         val lonBody = story.lon.toString().toRequestBody("text/plain".toMediaType())
         val file = MultipartBody.Part.createFormData("photo", photo.name, requestFile)
-        val result = remoteService.storyService.createStoryAsGuest(file, descriptionBody, latBody, lonBody)
+        val result =
+            remoteService.storyService.createStoryAsGuest(file, descriptionBody, latBody, lonBody)
         return when (result) {
             is NetworkResponse.ApiError -> Result.Failed(result.body.message)
             is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
@@ -36,7 +37,8 @@ class StoryRemoteDataSource(
         val latBody = story.lat.toString().toRequestBody("text/plain".toMediaType())
         val lonBody = story.lon.toString().toRequestBody("text/plain".toMediaType())
         val file = MultipartBody.Part.createFormData("photo", photo.name, requestFile)
-        val result = remoteService.storyService.createStory(token, file, descriptionBody, latBody, lonBody)
+        val result =
+            remoteService.storyService.createStory(token, file, descriptionBody, latBody, lonBody)
         return when (result) {
             is NetworkResponse.ApiError -> Result.Failed(result.body.message)
             is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
@@ -61,12 +63,25 @@ class StoryRemoteDataSource(
     }
 
     override suspend fun getDetailStory(token: String, storyId: String): Result<RemoteStory> {
-        val result = remoteService.storyService.getDetailStory(token, storyId)
-        return when (result) {
+        return when (val result = remoteService.storyService.getDetailStory(token, storyId)) {
             is NetworkResponse.ApiError -> Result.Failed(result.body.message)
             is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
             is NetworkResponse.Success -> Result.Success(result.body.story)
             is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+        }
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: StoryRemoteDataSource? = null
+
+        fun getInstance(remoteService: RemoteService): StoryRemoteDataSource {
+            return INSTANCE ?: synchronized(this) {
+                val instance = StoryRemoteDataSource(remoteService)
+                INSTANCE = instance
+
+                instance
+            }
         }
     }
 }
