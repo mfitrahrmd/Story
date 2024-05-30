@@ -29,6 +29,7 @@ class RemoteService private constructor() {
     init {
         val client = OkHttpClient.Builder()
             .addInterceptor {
+                // add 'Bearer' prefix if there is token in request header
                 val token = it.request().header("Authorization")
                 val requestBuilder = it.request().newBuilder()
                 if (!token.isNullOrEmpty()) {
