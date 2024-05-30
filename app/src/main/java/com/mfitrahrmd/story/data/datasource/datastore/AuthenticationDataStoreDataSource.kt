@@ -9,7 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class TokenDataStoreDataSource private constructor(
+class AuthenticationDataStoreDataSource private constructor(
     private val dataStore: DataStore<Preferences>
 ) {
     private val tokenKey = stringPreferencesKey("token")
@@ -28,11 +28,11 @@ class TokenDataStoreDataSource private constructor(
 
     companion object {
         @Volatile
-        private var INSTANCE: TokenDataStoreDataSource? = null
+        private var INSTANCE: AuthenticationDataStoreDataSource? = null
 
-        fun getInstance(dataStore: DataStore<Preferences>): TokenDataStoreDataSource {
+        fun getInstance(dataStore: DataStore<Preferences>): AuthenticationDataStoreDataSource {
             return INSTANCE ?: synchronized(this) {
-                val instance = TokenDataStoreDataSource(dataStore)
+                val instance = AuthenticationDataStoreDataSource(dataStore)
                 INSTANCE = instance
 
                 instance
