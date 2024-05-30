@@ -1,7 +1,7 @@
-package com.mfitrahrmd.story.data.repositories
+package com.mfitrahrmd.story.data.repository
 
 import androidx.paging.PagingData
-import com.mfitrahrmd.story.data.entities.Story
+import com.mfitrahrmd.story.data.entity.Story
 import kotlinx.coroutines.flow.Flow
 
 interface IStoryRepository {

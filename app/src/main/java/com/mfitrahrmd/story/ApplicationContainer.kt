@@ -4,8 +4,8 @@ import android.content.Context
 import com.mfitrahrmd.story.data.datasource.IAuthenticationDataSource
 import com.mfitrahrmd.story.data.datasource.remote.AuthenticationRemoteDataSource
 import com.mfitrahrmd.story.data.datasource.remote.services.RemoteService
-import com.mfitrahrmd.story.data.repositories.AuthenticationRepository
-import com.mfitrahrmd.story.data.repositories.IAuthenticationRepository
+import com.mfitrahrmd.story.data.repository.AuthenticationRepository
+import com.mfitrahrmd.story.data.repository.IAuthenticationRepository
 
 class ApplicationContainer(
     private val context: Context

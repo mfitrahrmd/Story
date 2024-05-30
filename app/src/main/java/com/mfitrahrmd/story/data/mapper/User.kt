@@ -2,7 +2,7 @@ package com.mfitrahrmd.story.data.mapper
 
 import com.mfitrahrmd.story.data.datasource.remote.dto.LoginRequest
 import com.mfitrahrmd.story.data.datasource.remote.dto.RegisterRequest
-import com.mfitrahrmd.story.data.entities.User
+import com.mfitrahrmd.story.data.entity.User
 
 fun User.toRegisterRequest(): RegisterRequest {
     if (this.account == null) {

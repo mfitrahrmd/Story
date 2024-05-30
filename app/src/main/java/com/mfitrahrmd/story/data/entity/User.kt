@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.data.entities
+package com.mfitrahrmd.story.data.entity
 
 data class User(
     val id: String,

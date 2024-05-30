@@ -4,7 +4,7 @@ import com.mfitrahrmd.story.data.datasource.IAuthenticationDataSource
 import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.datasource.remote.services.NetworkResponse
 import com.mfitrahrmd.story.data.datasource.remote.services.RemoteService
-import com.mfitrahrmd.story.data.entities.User
+import com.mfitrahrmd.story.data.entity.User
 import com.mfitrahrmd.story.data.mapper.toLoginRequest
 import com.mfitrahrmd.story.data.mapper.toRegisterRequest
 

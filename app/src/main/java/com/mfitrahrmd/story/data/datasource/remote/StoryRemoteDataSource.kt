@@ -4,10 +4,8 @@ import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.datasource.IStoryDataSource
 import com.mfitrahrmd.story.data.datasource.remote.services.NetworkResponse
 import com.mfitrahrmd.story.data.datasource.remote.services.RemoteService
-import com.mfitrahrmd.story.data.entities.Story
-import com.mfitrahrmd.story.data.entities.User
-import com.mfitrahrmd.story.data.entities.remote.RemoteStory
-import okhttp3.MediaType
+import com.mfitrahrmd.story.data.entity.Story
+import com.mfitrahrmd.story.data.entity.remote.RemoteStory
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

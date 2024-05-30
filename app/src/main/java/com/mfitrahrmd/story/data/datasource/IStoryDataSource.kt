@@ -1,10 +1,8 @@
 package com.mfitrahrmd.story.data.datasource
 
-import androidx.paging.PagingData
 import com.mfitrahrmd.story.data.Result
-import com.mfitrahrmd.story.data.entities.Story
-import com.mfitrahrmd.story.data.entities.remote.RemoteStory
-import kotlinx.coroutines.flow.Flow
+import com.mfitrahrmd.story.data.entity.Story
+import com.mfitrahrmd.story.data.entity.remote.RemoteStory
 import java.io.File
 
 interface IStoryDataSource {

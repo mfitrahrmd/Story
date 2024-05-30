@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.data.entities.remote
+package com.mfitrahrmd.story.data.entity.remote
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

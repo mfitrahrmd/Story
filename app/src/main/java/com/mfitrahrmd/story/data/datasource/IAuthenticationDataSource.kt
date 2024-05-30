@@ -1,7 +1,7 @@
 package com.mfitrahrmd.story.data.datasource
 
 import com.mfitrahrmd.story.data.Result
-import com.mfitrahrmd.story.data.entities.User
+import com.mfitrahrmd.story.data.entity.User
 
 interface IAuthenticationDataSource {
     suspend fun register(user: User): Result<Boolean>

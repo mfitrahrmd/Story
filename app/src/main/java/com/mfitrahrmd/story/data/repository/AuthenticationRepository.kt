@@ -1,7 +1,7 @@
-package com.mfitrahrmd.story.data.repositories
+package com.mfitrahrmd.story.data.repository
 
 import com.mfitrahrmd.story.data.datasource.IAuthenticationDataSource
-import com.mfitrahrmd.story.data.entities.User
+import com.mfitrahrmd.story.data.entity.User
 import com.mfitrahrmd.story.data.Result
 
 class AuthenticationRepository(
