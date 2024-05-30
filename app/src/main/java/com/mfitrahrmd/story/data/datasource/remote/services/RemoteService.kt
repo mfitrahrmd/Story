@@ -2,6 +2,7 @@ package com.mfitrahrmd.story.data.datasource.remote.services
 
 import com.mfitrahrmd.story.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -34,6 +35,7 @@ class RemoteService private constructor() {
                 val requestBuilder = it.request().newBuilder()
                 if (!token.isNullOrEmpty()) {
                     val bearerToken = "Bearer $token"
+                    requestBuilder.removeHeader("Authorization")
                     requestBuilder.addHeader("Authorization", bearerToken)
                 }
 
@@ -41,10 +43,15 @@ class RemoteService private constructor() {
                     requestBuilder.build()
                 )
             }
-            .build()
+        if (BuildConfig.DEBUG) {
+            val logging = HttpLoggingInterceptor().apply {
+                setLevel(HttpLoggingInterceptor.Level.BODY)
+            }
+            client.addInterceptor(logging)
+        }
         retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.API_BASE_URL)
-            .client(client)
+            .client(client.build())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(NetworkResponseCallAdapterFactory())
             .build()
