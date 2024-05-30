@@ -4,7 +4,6 @@ import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.entity.db.DBStory
 import com.mfitrahrmd.story.data.entity.remote.RemoteStory
 import com.mfitrahrmd.story.util.DateFormat
-import java.util.Date
 
 fun RemoteStory.toStory(): Story {
     return Story(
