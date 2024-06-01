@@ -41,4 +41,4 @@ class AuthenticationDataStoreDataSource private constructor(
     }
 }
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "authentication")
+val Context.authenticationDataStore: DataStore<Preferences> by preferencesDataStore(name = "authentication")
