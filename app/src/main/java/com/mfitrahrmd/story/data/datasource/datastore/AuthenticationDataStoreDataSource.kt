@@ -14,9 +14,9 @@ class AuthenticationDataStoreDataSource private constructor(
 ) {
     private val tokenKey = stringPreferencesKey("token")
 
-    fun getToken(): Flow<String?> {
+    fun getToken(): Flow<String> {
         return dataStore.data.map {
-            it[tokenKey]
+            it[tokenKey] ?: ""
         }
     }
 
