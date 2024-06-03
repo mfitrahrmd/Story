@@ -10,7 +10,8 @@ import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.datasource.IStoryDataSource
 import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.mapper.toStory
-import com.mfitrahrmd.story.data.repository.cache.dao.StoryDao
+import com.mfitrahrmd.story.data.repository.cache.IStoryCache
+import com.mfitrahrmd.story.data.repository.cache.room.dao.StoryDao
 import com.mfitrahrmd.story.data.repository.remotemediator.GetAllStoriesRemoteMediator
 import com.mfitrahrmd.story.data.util.IFileProvider
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.map
 
 class StoryRepository private constructor(
     private val storyDataSource: IStoryDataSource,
-    private val storyDao: StoryDao,
+    private val storyCache: IStoryCache,
     private val fileProvider: IFileProvider
 ) : IStoryRepository {
     override suspend fun createStory(story: Story): Result<Boolean> {
@@ -42,13 +43,9 @@ class StoryRepository private constructor(
     ): Flow<PagingData<Story>> {
         return Pager(
             config = PagingConfig(pageSize = DEFAULT_PAGE_SIZE, maxSize = DEFAULT_MAX_SIZE),
-            pagingSourceFactory = { storyDao.findAll() },
-            remoteMediator = GetAllStoriesRemoteMediator(token, location, storyDataSource, storyDao)
-        ).flow.map {
-            it.map { DBStory ->
-                DBStory.toStory()
-            }
-        }
+            pagingSourceFactory = { storyCache.findAll() },
+            remoteMediator = GetAllStoriesRemoteMediator(token, location, storyDataSource, storyCache)
+        ).flow
     }
 
     override suspend fun getDetailStory(token: String, storyId: String): Result<Story> {
@@ -67,11 +64,11 @@ class StoryRepository private constructor(
 
         fun getInstance(
             storyDataSource: IStoryDataSource,
-            storyDao: StoryDao,
+            storyCache: IStoryCache,
             fileProvider: IFileProvider
         ): StoryRepository {
             return INSTANCE ?: synchronized(this) {
-                val instance = StoryRepository(storyDataSource, storyDao, fileProvider)
+                val instance = StoryRepository(storyDataSource, storyCache, fileProvider)
                 INSTANCE = instance
 
                 instance

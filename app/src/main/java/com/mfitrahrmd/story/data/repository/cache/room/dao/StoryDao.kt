@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.data.repository.cache.dao
+package com.mfitrahrmd.story.data.repository.cache.room.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

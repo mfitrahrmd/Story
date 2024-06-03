@@ -6,10 +6,10 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.datasource.IStoryDataSource
-import com.mfitrahrmd.story.data.entity.db.DBStory
+import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.entity.remote.RemoteStory
-import com.mfitrahrmd.story.data.mapper.toDBStory
-import com.mfitrahrmd.story.data.repository.cache.dao.StoryDao
+import com.mfitrahrmd.story.data.mapper.toStory
+import com.mfitrahrmd.story.data.repository.cache.IStoryCache
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -18,8 +18,8 @@ class GetAllStoriesRemoteMediator(
     private val token: String,
     private val location: Boolean? = null,
     private val storyDataSource: IStoryDataSource,
-    private val storyDao: StoryDao,
-) : RemoteMediator<Int, DBStory>() {
+    private val storyCache: IStoryCache,
+) : RemoteMediator<Int, Story>() {
     private var _nextPage: Int? = null
 
     private suspend fun fetch(page: Int, pageSize: Int): List<RemoteStory> {
@@ -30,11 +30,11 @@ class GetAllStoriesRemoteMediator(
     }
 
     private suspend fun cleanLocalData() {
-        storyDao.deleteAll()
+        storyCache.deleteAll()
     }
 
-    private suspend fun upsertLocalData(localEntities: List<DBStory>) {
-        storyDao.insertMany(localEntities)
+    private suspend fun upsertLocalData(items: List<Story>) {
+        storyCache.insertMany(items)
     }
 
     override suspend fun initialize(): InitializeAction {
@@ -42,7 +42,7 @@ class GetAllStoriesRemoteMediator(
     }
 
     override suspend fun load(
-        loadType: LoadType, state: PagingState<Int, DBStory>
+        loadType: LoadType, state: PagingState<Int, Story>
     ): MediatorResult {
         val page: Int = when (loadType) {
             LoadType.REFRESH -> {
@@ -68,7 +68,7 @@ class GetAllStoriesRemoteMediator(
                 if (loadType == LoadType.REFRESH) {
                     cleanLocalData()
                 }
-                upsertLocalData(items.toDBStory())
+                upsertLocalData(items.toStory())
             }
 
             return MediatorResult.Success(endOfPaginationReached = end)

@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.data.repository.cache.dao.database
+package com.mfitrahrmd.story.data.repository.cache.room.dao.database
 
 import androidx.room.TypeConverter
 import java.util.Date
