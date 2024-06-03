@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Story</string>
+    <string name="story_photo">Story Photo</string>
+    <string name="button_bookmark">Button Bookmark</string>
 </resources>
