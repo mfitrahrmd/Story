@@ -1,4 +1,4 @@
-package com.mfitrahrmd.story.data.repository.cache.dao.database
+package com.mfitrahrmd.story.data.repository.cache.room.dao.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.mfitrahrmd.story.data.entity.db.DBStory
-import com.mfitrahrmd.story.data.repository.cache.dao.StoryDao
+import com.mfitrahrmd.story.data.repository.cache.room.dao.StoryDao
 
 @TypeConverters(Converters::class)
 @Database(

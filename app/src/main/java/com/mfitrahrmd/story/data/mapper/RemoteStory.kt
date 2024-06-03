@@ -30,3 +30,17 @@ fun List<RemoteStory>.toDBStory(): List<DBStory> {
         )
     }
 }
+
+fun List<RemoteStory>.toStory(): List<Story> {
+    return this.map {
+        Story(
+            id = it.id,
+            author = it.name,
+            description = it.description,
+            photoUrl = it.photoUrl,
+            lat = it.lat,
+            lon = it.lon,
+            createdAt = DateFormat.toDate(it.createdAt),
+        )
+    }
+}
