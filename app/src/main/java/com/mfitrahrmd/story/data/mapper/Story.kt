@@ -16,3 +16,15 @@ fun List<Story>.toDBStory(): List<DBStory> {
         )
     }
 }
+
+fun Story.toDBStory(): DBStory {
+    return DBStory(
+        id = this.id,
+        author = this.author,
+        description = this.description,
+        photoUrl = this.photoUrl,
+        lat = this.lat,
+        lon = this.lon,
+        createdAt = this.createdAt,
+    )
+}
