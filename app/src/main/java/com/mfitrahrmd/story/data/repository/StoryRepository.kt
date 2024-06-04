@@ -1,25 +1,19 @@
 package com.mfitrahrmd.story.data.repository
 
 import androidx.core.net.toUri
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.datasource.IStoryDataSource
 import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.mapper.toStory
-import com.mfitrahrmd.story.data.repository.cache.IStoryCache
-import com.mfitrahrmd.story.data.repository.cache.room.dao.StoryDao
-import com.mfitrahrmd.story.data.repository.remotemediator.GetAllStoriesRemoteMediator
+import com.mfitrahrmd.story.data.repository.pagingsource.StoryPagingSource
 import com.mfitrahrmd.story.data.util.IFileProvider
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 class StoryRepository private constructor(
     private val storyDataSource: IStoryDataSource,
-    private val storyCache: IStoryCache,
     private val fileProvider: IFileProvider
 ) : IStoryRepository {
     override suspend fun createStory(story: Story): Result<Boolean> {
@@ -34,7 +28,6 @@ class StoryRepository private constructor(
         return storyDataSource.createStory(token, story, storyPhotoFile)
     }
 
-    @OptIn(ExperimentalPagingApi::class)
     override suspend fun getAllStories(
         token: String,
         page: Int?,
@@ -43,8 +36,11 @@ class StoryRepository private constructor(
     ): Flow<PagingData<Story>> {
         return Pager(
             config = PagingConfig(pageSize = DEFAULT_PAGE_SIZE, maxSize = DEFAULT_MAX_SIZE),
-            pagingSourceFactory = { storyCache.findAll() },
-            remoteMediator = GetAllStoriesRemoteMediator(token, location, storyDataSource, storyCache)
+            pagingSourceFactory = {
+                StoryPagingSource { page, size ->
+                    storyDataSource.getAllStories(token, page, size, location)
+                }
+            },
         ).flow
     }
 
@@ -64,11 +60,10 @@ class StoryRepository private constructor(
 
         fun getInstance(
             storyDataSource: IStoryDataSource,
-            storyCache: IStoryCache,
             fileProvider: IFileProvider
         ): StoryRepository {
             return INSTANCE ?: synchronized(this) {
-                val instance = StoryRepository(storyDataSource, storyCache, fileProvider)
+                val instance = StoryRepository(storyDataSource, fileProvider)
                 INSTANCE = instance
 
                 instance

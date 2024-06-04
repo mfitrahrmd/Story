@@ -43,7 +43,7 @@ class ApplicationContainer(
         AuthenticationRepository.getInstance(authenticationRemoteDataSource)
     }
     override val storyRepository: IStoryRepository by lazy {
-        StoryRepository.getInstance(storyRemoteDataSource, storyRoomCache, storyPhotosFileProvider)
+        StoryRepository.getInstance(storyRemoteDataSource, storyPhotosFileProvider)
     }
     override val authentication: AuthenticationDataStoreDataSource by lazy {
         AuthenticationDataStoreDataSource.getInstance(context.authenticationDataStore)
