@@ -13,7 +13,7 @@ fun RemoteStory.toStory(): Story {
         photoUrl = this.photoUrl,
         lat = this.lat,
         lon = this.lon,
-        createdAt = DateFormat.toDate(this.createdAt)
+        createdAt = this.createdAt
     )
 }
 
@@ -40,7 +40,7 @@ fun List<RemoteStory>.toStory(): List<Story> {
             photoUrl = it.photoUrl,
             lat = it.lat,
             lon = it.lon,
-            createdAt = DateFormat.toDate(it.createdAt),
+            createdAt = it.createdAt,
         )
     }
 }

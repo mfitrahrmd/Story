@@ -2,6 +2,7 @@ package com.mfitrahrmd.story.data.mapper
 
 import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.entity.db.DBStory
+import java.util.Date
 
 fun List<Story>.toDBStory(): List<DBStory> {
     return this.map {
@@ -12,7 +13,7 @@ fun List<Story>.toDBStory(): List<DBStory> {
             photoUrl = it.photoUrl,
             lat = it.lat,
             lon = it.lon,
-            createdAt = it.createdAt,
+            createdAt = Date(it.createdAt),
         )
     }
 }
@@ -25,6 +26,6 @@ fun Story.toDBStory(): DBStory {
         photoUrl = this.photoUrl,
         lat = this.lat,
         lon = this.lon,
-        createdAt = this.createdAt,
+        createdAt = Date(this.createdAt),
     )
 }
