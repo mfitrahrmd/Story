@@ -17,7 +17,7 @@ class StoryActivity : RequireAuthentication(
     MainActivity::class.java
 ) {
     private lateinit var viewBinding: ActivityStoryBinding
-    private val storyAdapter = StoryAdapter()
+    private val storyAdapter = StoryAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

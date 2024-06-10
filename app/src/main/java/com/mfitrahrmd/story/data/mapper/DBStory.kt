@@ -11,6 +11,9 @@ fun DBStory.toStory(): Story {
         photoUrl = this.photoUrl,
         lat = this.lat,
         lon = this.lat,
-        createdAt = this.createdAt.toString()
+        createdAt = this.createdAt.toString(),
+        _postedAt = null,
+        _locationName = null,
+        _readingTime = null
     )
 }

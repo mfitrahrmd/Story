@@ -13,7 +13,10 @@ fun RemoteStory.toStory(): Story {
         photoUrl = this.photoUrl,
         lat = this.lat,
         lon = this.lon,
-        createdAt = this.createdAt
+        createdAt = this.createdAt,
+        _postedAt = null,
+        _readingTime = null,
+        _locationName = null
     )
 }
 
@@ -41,6 +44,9 @@ fun List<RemoteStory>.toStory(): List<Story> {
             lat = it.lat,
             lon = it.lon,
             createdAt = it.createdAt,
+            _locationName = null,
+            _postedAt = null,
+            _readingTime = null
         )
     }
 }
