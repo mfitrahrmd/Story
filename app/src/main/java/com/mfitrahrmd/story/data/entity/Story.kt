@@ -38,39 +38,53 @@ data class Story(
         val week = day * 7
         val month = day * 30
         val year = month * 12
-        val postedAt = if (duration.seconds < minute) context.resources.getQuantityString(R.plurals.second_ago, duration.seconds.toInt(), duration.seconds)
-        else if (duration.seconds < hour) context.resources.getQuantityString(R.plurals.minute_ago, duration.toMinutes().toInt(), duration.toMinutes())
-        else if (duration.seconds < day) context.resources.getQuantityString(R.plurals.hour_ago, duration.toHours().toInt(), duration.toHours())
-        else if (duration.seconds < week) context.resources.getQuantityString(R.plurals.day_ago, duration.toDays().toInt(), duration.toDays())
-        else if (duration.seconds < month) context.resources.getQuantityString(R.plurals.week_ago,
-            (duration.toDays() / 7).toInt(), duration.toDays() / 7)
-        else if (duration.seconds < year) context.resources.getQuantityString(R.plurals.month_ago,
-            (duration.toDays() / 30).toInt(), duration.toDays() / 30)
-        else context.resources.getQuantityString(R.plurals.year_ago,
-            (duration.toDays() / year).toInt(), duration.toDays() / year)
+        val postedAt = if (duration.seconds < minute) context.resources.getQuantityString(
+            R.plurals.second_ago,
+            duration.seconds.toInt(),
+            duration.seconds
+        )
+        else if (duration.seconds < hour) context.resources.getQuantityString(
+            R.plurals.minute_ago,
+            duration.toMinutes().toInt(),
+            duration.toMinutes()
+        )
+        else if (duration.seconds < day) context.resources.getQuantityString(
+            R.plurals.hour_ago,
+            duration.toHours().toInt(),
+            duration.toHours()
+        )
+        else if (duration.seconds < week) context.resources.getQuantityString(
+            R.plurals.day_ago,
+            duration.toDays().toInt(),
+            duration.toDays()
+        )
+        else if (duration.seconds < month) context.resources.getQuantityString(
+            R.plurals.week_ago,
+            (duration.toDays() / 7).toInt(), duration.toDays() / 7
+        )
+        else if (duration.seconds < year) context.resources.getQuantityString(
+            R.plurals.month_ago,
+            (duration.toDays() / 30).toInt(), duration.toDays() / 30
+        )
+        else context.resources.getQuantityString(
+            R.plurals.year_ago,
+            (duration.toDays() / year).toInt(), duration.toDays() / year
+        )
         this._postedAt = postedAt
     }
 
-    fun setLocationNameFromLatLon(context: Context) {
-        if (this.lat != null && this.lon != null && this.lat.toDouble() != 0.0 && this.lon.toDouble() != 0.0) {
-            val geocoder = Geocoder(context, Locale.getDefault())
-            geocoder.getFromLocation(this.lat.toDouble(), this.lon.toDouble(), 1)
-                ?.let {
-                    if (it.isEmpty()) return@let
-                    val locationName = it[0].getAddressLine(0)
-                    this._locationName = locationName
-                }
-        }
+    fun setLocationName(locationName: String) {
+        this._locationName = locationName
     }
 
-    fun setReadingTimeFromDescription() {
+    fun setReadingTimeFromDescription(context: Context) {
         val avgWPM = 200
         val words = this.description.split("\\s+".toRegex()).size
-        val readingTimeMinutes = words / avgWPM
-        val readingTime = when {
-            readingTimeMinutes <= 1 -> "1 minute read"
-            else -> "$readingTimeMinutes minutes read"
-        }
-        this._readingTime = readingTime
+        val readingTimeMinutes = if (words < 200) 1 else words / avgWPM
+        this._readingTime = context.resources.getQuantityString(
+            R.plurals.minute_read,
+            readingTimeMinutes,
+            readingTimeMinutes
+        )
     }
 }

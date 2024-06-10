@@ -31,4 +31,8 @@
         <item quantity="one">%1$d year ago</item>
         <item quantity="other">%1$d years ago</item>
     </plurals>
+    <plurals name="minute_read">
+        <item quantity="one">%1$d minute read</item>
+        <item quantity="other">%1$d minutes read</item>
+    </plurals>
 </resources>

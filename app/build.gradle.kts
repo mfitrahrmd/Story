@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.glide)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.converter.gson)
