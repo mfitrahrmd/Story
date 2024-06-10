@@ -30,7 +30,7 @@
                 android:layout_height="325dp"
                 android:contentDescription="@string/story_photo"
                 android:scaleType="centerCrop"
-                android:src="@drawable/norway"
+                tools:src="@drawable/norway"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
