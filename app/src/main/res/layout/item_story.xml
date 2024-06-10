@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
         app:cardCornerRadius="0dp"
-        app:cardElevation="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -39,8 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvLength"
+                app:layout_constraintEnd_toStartOf="@id/tvLength"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLocation"
+                app:layout_constraintTop_toTopOf="@id/tvLength"
                 tools:text="Mfitrahrmd" />
 
             <TextView
@@ -51,10 +52,8 @@
                 android:layout_marginHorizontal="12dp"
                 android:gravity="center_vertical"
                 app:drawableStartCompat="@drawable/location_on_24dp_fill0_wght400_grad0_opsz24"
-                app:layout_constraintBottom_toBottomOf="@id/tvLength"
-                app:layout_constraintEnd_toStartOf="@id/tvLength"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvLength"
+                app:layout_constraintTop_toBottomOf="@id/tvName"
                 tools:text="Sukarami, Palembang" />
 
             <TextView
@@ -76,7 +75,7 @@
                 android:layout_margin="12dp"
                 android:textColor="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvName"
+                app:layout_constraintTop_toBottomOf="@id/tvLocation"
                 tools:text="5 hours ago" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,7 @@ class StoryRepository private constructor(
         return storyDataSource.createStory(token, story, storyPhotoFile)
     }
 
-    override suspend fun getAllStories(
+    override suspend fun getStoryPages(
         token: String,
         page: Int?,
         size: Int?,

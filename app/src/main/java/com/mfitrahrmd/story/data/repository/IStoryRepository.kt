@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface IStoryRepository {
     suspend fun createStory(token: String, story: Story): Result<Boolean>
     suspend fun createStory(story: Story): Result<Boolean>
-    suspend fun getAllStories(
+    suspend fun getStoryPages(
         token: String,
         page: Int?,
         size: Int?,

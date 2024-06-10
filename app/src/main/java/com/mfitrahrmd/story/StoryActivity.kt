@@ -3,13 +3,14 @@ package com.mfitrahrmd.story
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mfitrahrmd.story.databinding.ActivityStoryBinding
 import com.mfitrahrmd.story.ui.adapter.StoryAdapter
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class StoryActivity : RequireAuthentication(
@@ -32,6 +33,9 @@ class StoryActivity : RequireAuthentication(
             rv.apply {
                 layoutManager = LinearLayoutManager(this@StoryActivity)
                 adapter = storyAdapter
+                addItemDecoration(DividerItemDecoration(this@StoryActivity, LinearLayoutManager.VERTICAL).apply{
+                    setDrawable(ContextCompat.getDrawable(this@StoryActivity, R.drawable.empty_divier)!!)
+                })
             }
         }
         val authentication =
@@ -42,7 +46,7 @@ class StoryActivity : RequireAuthentication(
         lifecycleScope.launch {
             authentication.getToken().collect { token ->
                 val storyPaging =
-                    storyRepository.getAllStories(token, null, null, null)
+                    storyRepository.getStoryPages(token, null, null, null)
                 storyPaging.collect {
                     storyAdapter.submitData(lifecycle, it)
                 }
