@@ -1,20 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_main_scene"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnLogin"
+    <TextView
+        android:id="@+id/tvRegisterTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/register"
+        tools:text="@string/register"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/etRegisterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:autofillHints="name"
+        android:hint="@string/name"
+        app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle" />
+
+    <EditText
+        android:id="@+id/etRegisterEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="email"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/etRegisterName" />
+
+    <EditText
+        android:id="@+id/etRegisterPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:hint="@string/password"
+        app:layout_constraintTop_toBottomOf="@id/etRegisterEmail" />
+    <EditText
+        android:id="@+id/etRegisterConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:hint="@string/confirm_password"
+        app:layout_constraintTop_toBottomOf="@id/etRegisterPassword" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gLayoutDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <TextView
+        android:id="@+id/tvLoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        tools:text="@string/login"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gLayoutDivider" />
+
+    <EditText
+        android:id="@+id/etLoginEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle" />
+    <EditText
+        android:id="@+id/etLoginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:autofillHints="password"
+        android:hint="@string/password"
+        app:layout_constraintTop_toBottomOf="@id/etLoginEmail" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

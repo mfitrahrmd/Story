@@ -26,45 +26,5 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        with(viewBinding) {
-            btnLogin.setOnClickListener {
-                val authenticationRepository =
-                    (application as StoryApplication).applicationContainer.authenticationRepository
-                val authentication =
-                    (application as StoryApplication).applicationContainer.authentication
-                lifecycleScope.launch {
-                    val result = authenticationRepository.login(
-                        User.Account(
-                            "tgcfitrah26@gmail.com",
-                            "12345678",
-                            ""
-                        )
-                    )
-                    when (result) {
-                        is Result.Success -> {
-                            authentication.setToken {
-                                result.data.token
-                            }
-                            startActivity(
-                                Intent(
-                                    this@MainActivity,
-                                    StoryActivity::class.java
-                                ).apply {
-                                    flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                })
-                        }
-
-                        is Result.Failed -> {
-                            Toast.makeText(
-                                this@MainActivity,
-                                "Login Failed : ${result.message}",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                }
-            }
-        }
     }
 }

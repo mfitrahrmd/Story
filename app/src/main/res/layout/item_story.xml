@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/tvName"
-                style="@style/TextAppearance.Material3.BodyMedium"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
