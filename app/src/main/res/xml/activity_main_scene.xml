@@ -1,154 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        motion:constraintSetStart="@id/login"
         motion:constraintSetEnd="@+id/register"
-        motion:duration="500"
+        motion:constraintSetStart="@id/login"
+        motion:duration="250"
         motion:motionInterpolator="easeOut">
-       <KeyFrameSet>
-       </KeyFrameSet>
+        <KeyFrameSet></KeyFrameSet>
         <OnClick
-            motion:targetId="@id/tvRegisterTitle"
-            motion:clickAction="transitionToEnd"/>
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/tvRegisterTitle" />
     </Transition>
 
     <Transition
-        motion:constraintSetStart="@+id/register"
         motion:constraintSetEnd="@+id/login"
-        motion:duration="500"
+        motion:constraintSetStart="@+id/register"
+        motion:duration="250"
         motion:motionInterpolator="easeOut">
-        <KeyFrameSet>
-        </KeyFrameSet>
+        <KeyFrameSet></KeyFrameSet>
         <OnClick
-            motion:targetId="@id/tvLoginTitle"
-            motion:clickAction="transitionToEnd"/>
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/tvLoginTitle" />
     </Transition>
 
     <ConstraintSet android:id="@+id/login">
         <Constraint
             android:id="@+id/tvRegisterTitle"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toTopOf="@id/gLayoutDivider"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintBottom_toTopOf="@id/gLayoutDivider" />
+            motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/etRegisterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0"
+            android:drawablePadding="6dp"
             android:visibility="gone"
-            android:alpha="0" />
+            motion:layout_constraintTop_toBottomOf="@id/tvRegisterTitle" />
         <Constraint
             android:id="@+id/etRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0"
+            android:drawablePadding="6dp"
             android:visibility="gone"
-            motion:layout_constraintTop_toBottomOf="@id/etRegisterName"
-            android:alpha="0" />
+            motion:layout_constraintTop_toBottomOf="@id/etRegisterName" />
         <Constraint
             android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0"
+            android:drawablePadding="6dp"
             android:visibility="gone"
-            motion:layout_constraintTop_toBottomOf="@id/etRegisterEmail"
-            android:alpha="0" />
+            motion:layout_constraintTop_toBottomOf="@id/etRegisterEmail" />
         <Constraint
             android:id="@+id/etRegisterConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0"
+            android:drawablePadding="6dp"
             android:visibility="gone"
-            motion:layout_constraintTop_toBottomOf="@id/etRegisterPassword"
-            android:alpha="0" />
+            motion:layout_constraintTop_toBottomOf="@id/etRegisterPassword" />
+        <Constraint
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="18dp"
+            android:visibility="gone"
+            motion:layout_constraintTop_toBottomOf="@id/etRegisterConfirmPassword" />
+
         <Constraint
             android:id="@+id/tvLoginTitle"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toBottomOf="@id/gLayoutDivider"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/gLayoutDivider"
             motion:layout_constraintVertical_bias="0.15" />
         <Constraint
             android:id="@+id/etLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="18dp"
+            android:drawablePadding="6dp"
             android:visibility="visible"
-            motion:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
-            android:layout_marginTop="64dp" />
+            motion:layout_constraintTop_toBottomOf="@id/tvLoginTitle" />
         <Constraint
             android:id="@+id/etLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:drawablePadding="6dp"
             android:visibility="visible"
             motion:layout_constraintTop_toBottomOf="@id/etLoginEmail" />
+        <Constraint
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="18dp"
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@id/etLoginPassword" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/register">
         <Constraint
             android:id="@+id/gLayoutDivider"
-            motion:layout_constraintGuide_percent="0.9"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            motion:layout_constraintGuide_percent="0.9" />
         <Constraint
             android:id="@+id/tvRegisterTitle"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
             motion:layout_constraintBottom_toTopOf="@id/gLayoutDivider"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintVertical_bias="0.25" />
         <Constraint
             android:id="@+id/etRegisterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="18dp"
+            android:drawablePadding="6dp"
             android:visibility="visible"
-            motion:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
-            android:layout_marginTop="64dp" />
+            motion:layout_constraintTop_toBottomOf="@id/tvRegisterTitle" />
         <Constraint
             android:id="@+id/etRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:drawablePadding="6dp"
             android:visibility="visible"
             motion:layout_constraintTop_toBottomOf="@id/etRegisterName" />
         <Constraint
             android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:drawablePadding="6dp"
             android:visibility="visible"
             motion:layout_constraintTop_toBottomOf="@id/etRegisterEmail" />
         <Constraint
             android:id="@+id/etRegisterConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:drawablePadding="6dp"
             android:visibility="visible"
             motion:layout_constraintTop_toBottomOf="@id/etRegisterPassword" />
         <Constraint
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="18dp"
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@id/etRegisterConfirmPassword" />
+        <Constraint
             android:id="@+id/tvLoginTitle"
-            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            motion:layout_constraintTop_toBottomOf="@id/gLayoutDivider"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintBottom_toBottomOf="parent" />
+            motion:layout_constraintTop_toBottomOf="@id/gLayoutDivider" />
         <Constraint
             android:id="@+id/etLoginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0"
+            android:drawablePadding="6dp"
             android:visibility="gone"
-            motion:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
-            android:alpha="0" />
+            motion:layout_constraintTop_toBottomOf="@id/tvLoginTitle" />
         <Constraint
             android:id="@+id/etLoginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0"
+            android:drawablePadding="6dp"
             android:visibility="gone"
-            motion:layout_constraintTop_toBottomOf="@id/etLoginEmail"
-            android:alpha="0" />
+            motion:layout_constraintTop_toBottomOf="@id/etLoginEmail" />
+        <Constraint
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="18dp"
+            android:visibility="gone"
+            motion:layout_constraintTop_toBottomOf="@id/etLoginPassword" />
     </ConstraintSet>
 </MotionScene>
