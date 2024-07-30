@@ -18,8 +18,8 @@ class StoryRemoteDataSource private constructor(
     override suspend fun createStory(story: Story, photo: File): Result<Boolean> {
         val requestFile = photo.asRequestBody("image/jpeg".toMediaType())
         val descriptionBody = story.description.toRequestBody("text/plain".toMediaType())
-        val latBody = story.lat.toString().toRequestBody("text/plain".toMediaType())
-        val lonBody = story.lon.toString().toRequestBody("text/plain".toMediaType())
+        val latBody = story.lat?.toString()?.toRequestBody("text/plain".toMediaType())
+        val lonBody = story.lon?.toString()?.toRequestBody("text/plain".toMediaType())
         val file = MultipartBody.Part.createFormData("photo", photo.name, requestFile)
         val result =
             remoteService.storyService.createStoryAsGuest(file, descriptionBody, latBody, lonBody)
