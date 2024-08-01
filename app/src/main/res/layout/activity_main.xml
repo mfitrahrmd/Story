@@ -107,7 +107,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/l_register_password"
-        app:text="@string/register" />
+        app:my_text="@string/register" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/g_layout_divider"
@@ -192,6 +192,6 @@
         android:layout_marginEnd="18dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/l_login_password"
-        app:text="@string/login" />
+        app:my_text="@string/login" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

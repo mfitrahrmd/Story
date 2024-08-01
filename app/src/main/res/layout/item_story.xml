@@ -86,9 +86,9 @@
             android:layout_marginTop="8dp"
             android:elevation="12dp"
             tools:text="@string/dummy_story_location"
-            app:background="@drawable/tip_background"
-            app:src="@drawable/location_outlined"
-            app:tint="@android:color/darker_gray"
+            app:my_background="@drawable/tip_background"
+            app:my_src="@drawable/location_outlined"
+            app:my_tint="@android:color/darker_gray"
             app:layout_constraintTop_toTopOf="@id/story_image"
             app:layout_constraintStart_toStartOf="@id/story_image" />
 

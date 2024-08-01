@@ -30,10 +30,10 @@ class MyTipTextView @JvmOverloads constructor(
             0,
             0
         )
-        val background = arr.getResourceId(R.styleable.MyTipTextView_background, R.drawable.tip_background)
-        val src = arr.getResourceId(R.styleable.MyTipTextView_src, R.drawable.exclamation)
-        val tint = arr.getColor(R.styleable.MyTipTextView_tint, 0)
-        val text = arr.getText(R.styleable.MyTipTextView_text)
+        val background = arr.getResourceId(R.styleable.MyTipTextView_my_background, R.drawable.tip_background)
+        val src = arr.getResourceId(R.styleable.MyTipTextView_my_src, R.drawable.exclamation)
+        val tint = arr.getColor(R.styleable.MyTipTextView_my_tint, 0)
+        val text = arr.getText(R.styleable.MyTipTextView_my_text)
         arr.recycle()
         with(viewBinding) {
             root.setBackgroundResource(background)

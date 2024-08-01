@@ -21,7 +21,7 @@ class MyButton @JvmOverloads constructor(
             0,
             0
         )
-        val text = arr.getString(R.styleable.MyButton_text)
+        val text = arr.getString(R.styleable.MyButton_my_text)
         val loading = arr.getBoolean(R.styleable.MyButton_loading, false)
         val enabled = arr.getBoolean(R.styleable.MyButton_enabled, true)
         val lottieResId = arr.getResourceId(R.styleable.MyButton_lottieResId, R.raw.spinner_white)

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="text" format="string" />
-    <attr name="background" format="color|reference" />
+    <attr name="my_text" format="string" />
+    <attr name="my_background" format="color|reference" />
 
     <declare-styleable name="MyButton">
-        <attr name="text" />
+        <attr name="my_text" />
         <attr name="loading" format="boolean" />
         <attr name="enabled" format="boolean" />
         <attr name="lottieResId" format="integer" />
-        <attr name="background" />
+        <attr name="my_background" />
     </declare-styleable>
     <declare-styleable name="MyTextInputEditText">
         <attr name="validation">
@@ -20,9 +20,9 @@
         </attr>
     </declare-styleable>
     <declare-styleable name="MyTipTextView">
-        <attr name="background" />
-        <attr name="src" format="color|reference" />
-        <attr name="tint" format="color" />
-        <attr name="text" />
+        <attr name="my_background" />
+        <attr name="my_src" format="color|reference" />
+        <attr name="my_tint" format="color" />
+        <attr name="my_text" />
     </declare-styleable>
 </resources>
