@@ -24,8 +24,9 @@ class GetAllStoriesRemoteMediator(
 
     private suspend fun fetch(page: Int, pageSize: Int): List<RemoteStory> {
         return when (val result = storyDataSource.getAllStories(token, page, pageSize, location)) {
+            is Result.Success.WithData -> result.data
+            is Result.Success.Message -> emptyList()
             is Result.Failed -> emptyList()
-            is Result.Success -> result.data
         }
     }
 

@@ -15,8 +15,6 @@ import com.mfitrahrmd.story.data.repository.StoryRepository
 import com.mfitrahrmd.story.data.repository.cache.IStoryCache
 import com.mfitrahrmd.story.data.repository.cache.room.StoryRoomCache
 import com.mfitrahrmd.story.data.repository.cache.room.dao.database.StoryDatabase
-import com.mfitrahrmd.story.data.util.FileProvider
-import com.mfitrahrmd.story.data.util.IFileProvider
 
 class ApplicationContainer(
     private val context: Context
@@ -26,9 +24,6 @@ class ApplicationContainer(
     }
     private val storyDatabase: StoryDatabase by lazy {
         StoryDatabase.getInstance(context)
-    }
-    private val storyPhotosFileProvider: IFileProvider by lazy {
-        FileProvider(context, STORY_PHOTOS_FILE_PATH)
     }
     private val authenticationRemoteDataSource: IAuthenticationDataSource by lazy {
         AuthenticationRemoteDataSource.getInstance(remoteService)
@@ -43,7 +38,7 @@ class ApplicationContainer(
         AuthenticationRepository.getInstance(authenticationRemoteDataSource)
     }
     override val storyRepository: IStoryRepository by lazy {
-        StoryRepository.getInstance(storyRemoteDataSource, storyPhotosFileProvider)
+        StoryRepository.getInstance(storyRemoteDataSource)
     }
     override val authentication: AuthenticationDataStoreDataSource by lazy {
         AuthenticationDataStoreDataSource.getInstance(context.authenticationDataStore)

@@ -14,7 +14,7 @@ class StoryPagingSource(
         return try {
             val page = params.key ?: STARTING_PAGE_INDEX
             when (val result = fetcher(page, params.loadSize)) {
-                is Result.Success -> {
+                is Result.Success.WithData -> {
                     val position = params.key ?: STARTING_PAGE_INDEX
                     val prevKey = if (position == STARTING_PAGE_INDEX) null else (position - 1)
                     val end = result.data.isEmpty() || result.data.size < params.loadSize
@@ -27,6 +27,14 @@ class StoryPagingSource(
                         data = result.data.toStory(),
                         prevKey = prevKey,
                         nextKey = nextKey
+                    )
+                }
+
+                is Result.Success.Message -> {
+                    LoadResult.Page(
+                        data = emptyList(),
+                        prevKey = null,
+                        nextKey = null
                     )
                 }
 

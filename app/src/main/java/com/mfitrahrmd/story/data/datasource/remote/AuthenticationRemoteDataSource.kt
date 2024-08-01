@@ -14,19 +14,20 @@ class AuthenticationRemoteDataSource private constructor(
     override suspend fun register(user: User): Result<Boolean> {
         val result = remoteService.authenticationService.register(user.toRegisterRequest())
         return when (result) {
-            is NetworkResponse.ApiError -> Result.Failed(result.body.message)
-            is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(true)
-            is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+            is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
+            is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
+            is NetworkResponse.Success -> Result.Success.Message(result.body.message)
+            is NetworkResponse.UnknownError -> Result.Failed.UnknownError(result.error?.message.orEmpty())
         }
     }
 
     override suspend fun login(userAccount: User.Account): Result<User.Account> {
         val result = remoteService.authenticationService.login(userAccount.toLoginRequest())
         return when (result) {
-            is NetworkResponse.ApiError -> Result.Failed(result.body.message)
-            is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(
+            is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
+            is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
+            is NetworkResponse.Success -> Result.Success.WithData(
+                result.body.message,
                 User.Account(
                     userAccount.email,
                     userAccount.password,
@@ -34,7 +35,7 @@ class AuthenticationRemoteDataSource private constructor(
                 )
             )
 
-            is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+            is NetworkResponse.UnknownError -> Result.Failed.UnknownError(result.error?.message.orEmpty())
         }
     }
 

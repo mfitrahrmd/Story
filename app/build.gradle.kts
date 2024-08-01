@@ -44,6 +44,11 @@ android {
 }
 
 dependencies {
+    implementation(project(":component"))
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
     implementation(libs.glide)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.datastore.preferences)
@@ -51,6 +56,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.navigation.fragment)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

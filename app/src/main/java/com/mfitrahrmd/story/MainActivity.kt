@@ -1,9 +1,12 @@
 package com.mfitrahrmd.story
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,13 +15,11 @@ import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.entity.User
 import com.mfitrahrmd.story.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
-import okhttp3.internal.wait
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -26,5 +27,80 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        with(viewBinding) {
+            btnLogin.setOnClickListener {
+                if (!loginEmail.validate()) {
+                    loginEmail.requestFocus()
+
+                    return@setOnClickListener
+                }
+                if (!loginPassword.validate()) {
+                    loginPassword.requestFocus()
+
+                    return@setOnClickListener
+                }
+                btnLogin.setLoading(true)
+                val authenticationRepository =
+                    (application as StoryApplication).applicationContainer.authenticationRepository
+                val authentication =
+                    (application as StoryApplication).applicationContainer.authentication
+                lifecycleScope.launch {
+                    val result = authenticationRepository.login(
+                        User.Account(
+                            email = loginEmail.text.toString(),
+                            password = loginPassword.text.toString(),
+                            token = ""
+                        )
+                    )
+                    btnLogin.setLoading(false)
+                    when (result) {
+                        is Result.Success.WithData -> {
+                            authentication.setToken {
+                                result.data.token
+                            }
+                            startActivity(
+                                Intent(
+                                    this@MainActivity,
+                                    SplashScreenActivity::class.java
+                                ).apply {
+                                    flags =
+                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                })
+                        }
+
+                        is Result.Success.Message -> {
+                            Toast.makeText(this@MainActivity, result.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+
+                        is Result.Failed.ApiError -> {
+                            lLoginEmail.error = "invalid email or password"
+                            lLoginPassword.error = "invalid email or password"
+                        }
+
+                        is Result.Failed -> {
+                            Toast.makeText(this@MainActivity, result.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (ev?.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is EditText) {
+                val outRect = android.graphics.Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(ev.rawX.toInt(), ev.rawY.toInt())) {
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                    v.clearFocus()
+                }
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

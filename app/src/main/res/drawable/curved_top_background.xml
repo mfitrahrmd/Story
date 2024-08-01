@@ -12,7 +12,7 @@
             android:innerRadius="100dp"
             android:shape="rectangle"
             android:useLevel="true">
-            <solid android:color="@color/white" />
+            <solid android:color="?android:attr/colorBackground" />
             <corners
                 android:bottomLeftRadius="0dp"
                 android:bottomRightRadius="0dp"

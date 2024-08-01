@@ -12,6 +12,10 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="login">Login</string>
+    <string name="reels">Reels</string>
+    <string name="chats">Chats</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
     <plurals name="second_ago">
         <item quantity="one">%1$d second ago</item>
         <item quantity="other">%1$d seconds ago</item>
@@ -44,4 +48,18 @@
         <item quantity="one">%1$d minute read</item>
         <item quantity="other">%1$d minutes read</item>
     </plurals>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="username">\@%1$s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="what_s_your_story_today">What\'s your story today?</string>
+    <string name="dummy_author_name">Brooklyn Simmons</string>
+    <string name="dummy_author_username">\@brooklyn_s</string>
+    <string name="dummy_story_location">Brooklyn, NYC</string>
+    <string name="dummy_story_text">In the serene village of Hanamizawa, nestled among cherry blossom trees, lived a young girl named Aiko. With her bright, lavender eyes and long, flowing hair that shimmered like silver in the sunlight, she was a sight to behold. Aiko was known throughout the village for her kind heart and unwavering optimism.\n\nOne sunny morning, Aiko set out on her usual journey to the ancient temple on the hill. It was a special day, for it marked the beginning of the Hanamizawa Festival, a celebration of the cherry blossoms and the spirits that were believed to protect the village. Aiko had a secret: she could communicate with these spirits, a gift passed down through generations in her family.\n\nAs she approached the temple, she felt a gentle breeze and heard a soft whisper. \"Aiko, we need your help,\" the spirits called. Concerned, she hurried to the temple\'s inner sanctum, where a faint glow illuminated the sacred altar. There, she found a small, injured spirit, its light flickering weakly.\n\n\"What happened?\" Aiko asked, her voice full of compassion.\n\n\"The balance of nature is disturbed,\" the spirit replied. \"A dark force is spreading through the forest, threatening to engulf Hanamizawa.\"\n\nDetermined to save her village, Aiko set off into the forest, guided by the spirits. Along the way, she encountered various challenges: mischievous yokai, treacherous terrain, and a deep, eerie silence that hung heavy in the air. But Aiko\'s resolve never wavered. She used her connection with the spirits to navigate the dangers, her pure heart lighting the way.\n\nAt the heart of the forest, Aiko found the source of the darkness—a corrupted spirit, twisted by anger and pain. She approached it with caution, sensing the sorrow that fueled its rage.\n\n\"Why are you doing this?\" she asked gently.\n\nThe corrupted spirit\'s eyes, once bright and kind, now glowed with a sinister red. \"I was forgotten, abandoned by the villagers,\" it growled. \"Their neglect turned me into this.\"\n\nAiko knelt before the spirit, tears welling up in her eyes. \"I\'m so sorry,\" she whispered. \"Let me help you. You are not forgotten.\"\n\nShe reached out, her hand glowing with a soft, warm light. The corrupted spirit hesitated, then slowly, hesitantly, took her hand. The dark energy began to dissipate, replaced by a gentle, soothing aura. The spirit\'s true form, a beautiful, serene figure, emerged from the shadows.\n\n\"Thank you, Aiko,\" it said, its voice now filled with gratitude. \"You have restored balance and reminded me of the goodness in the world.\"\n\nWith the darkness lifted, the forest began to heal. Aiko returned to the village, greeted by cheers and applause from the villagers. The cherry blossoms seemed to bloom even more brightly, their petals dancing in the wind like a celebration of her bravery.\n\nAs the festival commenced, Aiko stood among her friends and family, her heart full of joy. She knew that, no matter what challenges lay ahead, she would always have the spirits by her side, and together, they would protect the beauty and harmony of Hanamizawa.</string>
+    <string name="dummy_story_posted_time">5 mins ago</string>
+    <string name="item_menu">item menu</string>
+    <string name="like">like</string>
+    <string name="create">create</string>
+    <string name="add_image_from_gallery">add image from gallery</string>
+    <string name="add_image_from_camera">add image from camera</string>
 </resources>

@@ -30,43 +30,54 @@ class StoryAdapter(
         fun bind(story: Story?) {
             if (story != null) {
                 with(viewBinding) {
-                    tvName.text = story.author
+                    Glide.with(context)
+                        .load("https://api.dicebear.com/9.x/thumbs/png?seed=${story.author}&backgroundColor=f88c49&randomizeIds=true&mouth=variant2,variant3,variant4,variant5,variant1&shapeColor=f1f4dc,69d2e7,1c799f,0a5b83")
+                        .into(avatar)
+                    authorName.text = story.author
+                    if (story.description.isNotEmpty()) {
+                        storyText.apply {
+                            text = story.description
+                            visibility = View.VISIBLE
+                        }
+                    } else {
+                        storyText.visibility = View.GONE
+                    }
                     if (!story.readingTime.isNullOrEmpty()) {
-                        tvLength.apply {
+                        storyReadingTime.apply {
                             text = story.readingTime
                             visibility = View.VISIBLE
                         }
                     } else {
-                        tvLength.visibility = View.GONE
+                        storyReadingTime.visibility = View.GONE
                     }
                     if (!story.postedAt.isNullOrEmpty()) {
-                        tvTime.apply {
+                        storyPostedTime.apply {
                             text = story.postedAt
                             visibility = View.VISIBLE
                         }
                     } else {
-                        tvTime.visibility = View.GONE
+                        storyPostedTime.visibility = View.GONE
                     }
                     if (!story.locationName.isNullOrEmpty()) {
-                        tvLocation.apply {
-                            text = story.locationName
+                        storyLocation.apply {
+                            setText(story.locationName)
                             visibility = View.VISIBLE
                         }
                     } else {
-                        tvLocation.visibility = View.GONE
+                        storyLocation.visibility = View.GONE
                     }
                     Glide.with(context)
                         .load(story.photoUrl)
-                        .into(ivPhoto)
+                        .into(storyImage)
                 }
             }
         }
 
         fun updateLocationName(locationName: String?) {
             with(viewBinding) {
-                tvLocation.apply {
+                storyLocation.apply {
                     if (!locationName.isNullOrEmpty()) {
-                        text = locationName
+                        setText(locationName)
                         visibility = View.VISIBLE
                     } else {
                         visibility = View.GONE

@@ -24,10 +24,10 @@ class StoryRemoteDataSource private constructor(
         val result =
             remoteService.storyService.createStoryAsGuest(file, descriptionBody, latBody, lonBody)
         return when (result) {
-            is NetworkResponse.ApiError -> Result.Failed(result.body.message)
-            is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(true)
-            is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+            is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
+            is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
+            is NetworkResponse.Success -> Result.Success.Message(result.body.message)
+            is NetworkResponse.UnknownError -> Result.Failed.UnknownError(result.error?.message.orEmpty())
         }
     }
 
@@ -40,10 +40,10 @@ class StoryRemoteDataSource private constructor(
         val result =
             remoteService.storyService.createStory(token, file, descriptionBody, latBody, lonBody)
         return when (result) {
-            is NetworkResponse.ApiError -> Result.Failed(result.body.message)
-            is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(true)
-            is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+            is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
+            is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
+            is NetworkResponse.Success -> Result.Success.Message(result.body.message)
+            is NetworkResponse.UnknownError -> Result.Failed.UnknownError(result.error?.message.orEmpty())
         }
     }
 
@@ -55,19 +55,19 @@ class StoryRemoteDataSource private constructor(
     ): Result<List<RemoteStory>> {
         val result = remoteService.storyService.getAllStories(token, page, size, location)
         return when (result) {
-            is NetworkResponse.ApiError -> Result.Failed(result.body.message)
-            is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(result.body.listStory)
-            is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+            is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
+            is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
+            is NetworkResponse.Success -> Result.Success.WithData(result.body.message, result.body.listStory)
+            is NetworkResponse.UnknownError -> Result.Failed.UnknownError(result.error?.message.orEmpty())
         }
     }
 
     override suspend fun getDetailStory(token: String, storyId: String): Result<RemoteStory> {
         return when (val result = remoteService.storyService.getDetailStory(token, storyId)) {
-            is NetworkResponse.ApiError -> Result.Failed(result.body.message)
-            is NetworkResponse.NetworkError -> Result.Failed(result.error.message.orEmpty())
-            is NetworkResponse.Success -> Result.Success(result.body.story)
-            is NetworkResponse.UnknownError -> Result.Failed(result.error?.message.orEmpty())
+            is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
+            is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
+            is NetworkResponse.Success -> Result.Success.WithData(result.body.message, result.body.story)
+            is NetworkResponse.UnknownError -> Result.Failed.UnknownError(result.error?.message.orEmpty())
         }
     }
 

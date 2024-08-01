@@ -1,89 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    app:cardElevation="0dp">
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="12dp"
-        app:cardCornerRadius="0dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="6dp"
-        app:cardMaxElevation="12dp"
-        app:cardPreventCornerOverlap="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingTop="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/avatar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:layout_marginHorizontal="16dp"
+            app:strokeWidth="2dp"
+            android:padding="2dp"
+            app:strokeColor="?attr/colorPrimary"
+            app:shapeAppearanceOverlay="@style/Circle"
+            tools:srcCompat="@drawable/dummy_story_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toStartOf="@id/btn_more"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            app:layout_constraintBottom_toBottomOf="@id/avatar">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/author_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                android:textStyle="bold"
+                tools:text="@string/dummy_author_name" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/author_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                tools:text="@string/dummy_author_username" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/item_menu"
+            android:src="@drawable/menu_dots_vertical"
+            android:layout_marginHorizontal="16dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/story_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            android:elevation="12dp"
+            tools:srcCompat="@drawable/dummy_story_image"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintTop_toBottomOf="@id/avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.mfitrahrmd.component.MyTipTextView
+            android:id="@+id/story_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:elevation="12dp"
+            tools:text="@string/dummy_story_location"
+            app:background="@drawable/tip_background"
+            app:src="@drawable/location_outlined"
+            app:tint="@android:color/darker_gray"
+            app:layout_constraintTop_toTopOf="@id/story_image"
+            app:layout_constraintStart_toStartOf="@id/story_image" />
+
+        <LinearLayout
+            android:id="@+id/l_story_action"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/story_reading_time"
+            app:layout_constraintTop_toBottomOf="@id/story_image">
+
+            <ImageButton
+                android:id="@+id/btn_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/like"
+                android:src="@drawable/heart_outlined"
+                android:layout_gravity="center"
+                app:tint="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/story_reading_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:elevation="12dp"
+            android:gravity="center"
+            android:background="@drawable/duration_story_background"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            tools:text="5 mins read"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="@id/story_image"
+            app:layout_constraintTop_toBottomOf="@id/story_image"
+            app:layout_constraintBottom_toBottomOf="@id/story_image"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/story_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:paddingBottom="12dp">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            tools:text="@string/dummy_story_text"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintTop_toBottomOf="@id/l_story_action" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivPhoto"
-                android:layout_width="0dp"
-                android:layout_height="325dp"
-                android:contentDescription="@string/story_photo"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/norway"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/story_posted_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            tools:text="@string/dummy_story_posted_time"
+            app:layout_constraintTop_toBottomOf="@id/story_text"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/tvName"
-                style="@style/TextAppearance.AppCompat.Body1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/tvLength"
-                app:layout_constraintEnd_toStartOf="@id/tvLength"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvLength"
-                tools:text="Mfitrahrmd" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:layout_marginHorizontal="12dp"
-                android:gravity="center_vertical"
-                app:drawableStartCompat="@drawable/location_on_24dp_fill0_wght400_grad0_opsz24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvName"
-                tools:text="Sukarami, Palembang" />
-
-            <TextView
-                android:id="@+id/tvLength"
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:background="@drawable/rounded_square_outlined"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivPhoto"
-                tools:text="5 Min Read" />
-
-            <TextView
-                android:id="@+id/tvTime"
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:textColor="@android:color/darker_gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLocation"
-                tools:text="5 hours ago" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

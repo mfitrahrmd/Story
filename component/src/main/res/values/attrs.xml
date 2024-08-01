@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="text" format="string" />
+    <attr name="background" format="color|reference" />
+
+    <declare-styleable name="MyButton">
+        <attr name="text" />
+        <attr name="loading" format="boolean" />
+        <attr name="enabled" format="boolean" />
+        <attr name="lottieResId" format="integer" />
+        <attr name="background" />
+    </declare-styleable>
+    <declare-styleable name="MyTextInputEditText">
+        <attr name="validation">
+            <flag name="none" value="0" />
+            <flag name="not_empty" value="1" />
+            <flag name="email" value="2" />
+            <flag name="password" value="4" />
+            <flag name="contains_number" value="8" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="MyTipTextView">
+        <attr name="background" />
+        <attr name="src" format="color|reference" />
+        <attr name="tint" format="color" />
+        <attr name="text" />
+    </declare-styleable>
+</resources>

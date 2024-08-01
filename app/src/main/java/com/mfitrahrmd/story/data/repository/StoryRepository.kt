@@ -1,6 +1,5 @@
 package com.mfitrahrmd.story.data.repository
 
-import androidx.core.net.toUri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -9,23 +8,18 @@ import com.mfitrahrmd.story.data.datasource.IStoryDataSource
 import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.mapper.toStory
 import com.mfitrahrmd.story.data.repository.pagingsource.StoryPagingSource
-import com.mfitrahrmd.story.data.util.IFileProvider
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 
 class StoryRepository private constructor(
-    private val storyDataSource: IStoryDataSource,
-    private val fileProvider: IFileProvider
+    private val storyDataSource: IStoryDataSource
 ) : IStoryRepository {
-    override suspend fun createStory(story: Story): Result<Boolean> {
-        val storyPhotoFile = fileProvider.uriToJpgFile(story.photoUrl.toUri())
-
-        return storyDataSource.createStory(story, storyPhotoFile)
+    override suspend fun createStory(story: Story, imageFile: File): Result<Boolean> {
+        return storyDataSource.createStory(story, imageFile)
     }
 
-    override suspend fun createStory(token: String, story: Story): Result<Boolean> {
-        val storyPhotoFile = fileProvider.uriToJpgFile(story.photoUrl.toUri())
-
-        return storyDataSource.createStory(token, story, storyPhotoFile)
+    override suspend fun createStory(token: String, story: Story, imageFile: File): Result<Boolean> {
+        return storyDataSource.createStory(token, story, imageFile)
     }
 
     override suspend fun getStoryPages(
@@ -46,8 +40,9 @@ class StoryRepository private constructor(
 
     override suspend fun getDetailStory(token: String, storyId: String): Result<Story> {
         return when (val result = storyDataSource.getDetailStory(token, storyId)) { // type mismatch
+            is Result.Success.WithData -> Result.Success.WithData(result.message, result.data.toStory())
+            is Result.Success.Message -> result
             is Result.Failed -> result
-            is Result.Success -> Result.Success(result.data.toStory())
         }
     }
 
@@ -60,10 +55,9 @@ class StoryRepository private constructor(
 
         fun getInstance(
             storyDataSource: IStoryDataSource,
-            fileProvider: IFileProvider
         ): StoryRepository {
             return INSTANCE ?: synchronized(this) {
-                val instance = StoryRepository(storyDataSource, fileProvider)
+                val instance = StoryRepository(storyDataSource)
                 INSTANCE = instance
 
                 instance

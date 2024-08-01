@@ -5,54 +5,63 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoryActivity">
+    tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:elevation="1dp"
+        style="@style/Theme.Story.ActionBar"
+        app:title="@string/app_name"
+        android:layout_gravity="top">
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_nav" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:contentInsetStart="0dp"
+        app:backgroundTint="@android:color/transparent"
+        app:hideOnScroll="true"
+        app:elevation="0dp"
+        app:fabAnchorMode="embed"
         app:fabAlignmentMode="center"
-        app:fabCradleRoundedCornerRadius="32dp"
-        app:fabCradleMargin="8dp"
-        app:hideOnScroll="true">
-
-        <LinearLayout
+        app:removeEmbeddedFabElevation="true"
+        android:layout_gravity="bottom">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                tools:text="Stories" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="center"
-                tools:text="Settings" />
-
-        </LinearLayout>
-
+            android:layout_height="64dp"
+            android:background="@drawable/bottom_nav_background"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_nav_menu"
+            app:elevation="8dp"
+            app:itemBackground="@drawable/bottom_nav_item_background"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_create_story"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:contentDescription="@string/create_story"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        android:tooltipText="@string/create_story"
-        app:srcCompat="@drawable/add_24"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:layout_anchor="@id/bottomAppBar" />
+        app:fabCustomSize="48dp"
+        app:backgroundTint="?attr/colorPrimary"
+        app:tint="@color/white"
+        android:src="@drawable/add_24"
+        app:layout_anchor="@id/bottom_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
