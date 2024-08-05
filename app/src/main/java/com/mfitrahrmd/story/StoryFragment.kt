@@ -8,37 +8,49 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.databinding.FragmentStoryBinding
 import com.mfitrahrmd.story.ui.adapter.StoryAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
+// TODO : fix not scrolling on top after refresh
+
 class StoryFragment : Fragment() {
     private lateinit var binding: FragmentStoryBinding
-    private val viewModel: StoryViewModel by lazy {
-        ViewModelProvider(this, AppViewModelProvider.Factory)[StoryViewModel::class.java]
+    private val activityViewModel: StoryViewModel by activityViewModels {
+        AppViewModelProvider.Factory
     }
     private lateinit var storyAdapter: StoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireActivity().supportFragmentManager.setFragmentResultListener(CreateStoryFragment.REQUEST_KEY, this) { requestKey, bundle ->
+        requireActivity().supportFragmentManager.setFragmentResultListener(
+            CreateStoryFragment.REQUEST_KEY,
+            this
+        ) { requestKey, bundle ->
             val message = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                bundle.getParcelable(CreateStoryFragment.BUNDLE_KEY_RESULT, CreateStoryFragment.CreateResult::class.java)
+                bundle.getParcelable(
+                    CreateStoryFragment.BUNDLE_KEY_RESULT,
+                    CreateStoryFragment.CreateResult::class.java
+                )
             } else {
                 bundle.getParcelable<CreateStoryFragment.CreateResult>(CreateStoryFragment.BUNDLE_KEY_RESULT)
             }
-            Toast.makeText(this.requireContext(), message?.message, Toast.LENGTH_SHORT).show()
+            message?.apply {
+                Toast.makeText(requireContext(), message.message, Toast.LENGTH_SHORT).show()
+                if (!isError) {
+                    activityViewModel.refresh()
+                    binding.listStory.scrollToPosition(0)
+                }
+            }
         }
     }
 
@@ -55,7 +67,7 @@ class StoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             swipeToRefresh.setOnRefreshListener {
-                viewModel.refresh()
+                activityViewModel.refresh()
                 with(binding) {
                     listStory.scrollToPosition(0)
                 }
@@ -78,7 +90,7 @@ class StoryFragment : Fragment() {
             }
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    viewModel.storyPagingDataFlow.collect {
+                    activityViewModel.storyPagingDataFlow.collect {
                         storyAdapter.submitData(lifecycle, it)
                     }
                 }
@@ -94,7 +106,7 @@ class StoryFragment : Fragment() {
                         }
                 }
             }
-            viewModel.refresh()
+            activityViewModel.refresh()
         }
     }
 }

@@ -62,4 +62,9 @@
     <string name="create">create</string>
     <string name="add_image_from_gallery">add image from gallery</string>
     <string name="add_image_from_camera">add image from camera</string>
+    <string name="allow_access">Allow Access</string>
+    <string name="permission_camera_title">Camera Time</string>
+    <string name="permission_camera_description">Going hangout, doing work or just enjoying a cup of coffee you get the chance to share what you see with others.</string>
+    <string name="permission_needed">Permission Needed</string>
+    <string name="permission_camera_denied_permanently">The app needs Camera permission to take photos. Please enable it in the app settings.</string>
 </resources>

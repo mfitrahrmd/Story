@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.entity.User
@@ -18,6 +19,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this, AppViewModelProvider.Factory)[MainViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,12 +45,8 @@ class MainActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
                 btnLogin.setLoading(true)
-                val authenticationRepository =
-                    (application as StoryApplication).applicationContainer.authenticationRepository
-                val authentication =
-                    (application as StoryApplication).applicationContainer.authentication
                 lifecycleScope.launch {
-                    val result = authenticationRepository.login(
+                    val result = viewModel.login(
                         User.Account(
                             email = loginEmail.text.toString(),
                             password = loginPassword.text.toString(),
@@ -55,17 +56,25 @@ class MainActivity : AppCompatActivity() {
                     btnLogin.setLoading(false)
                     when (result) {
                         is Result.Success.WithData -> {
-                            authentication.setToken {
-                                result.data.token
+                            result.data.account?.apply {
+                                viewModel.session.setToken {
+                                    result.data.account.token
+                                }
+                                viewModel.session.setName {
+                                    result.data.name
+                                }
+                                viewModel.session.setEmail {
+                                    result.data.account.email
+                                }
+                                startActivity(
+                                    Intent(
+                                        this@MainActivity,
+                                        StoryActivity::class.java
+                                    ).apply {
+                                        flags =
+                                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    })
                             }
-                            startActivity(
-                                Intent(
-                                    this@MainActivity,
-                                    SplashScreenActivity::class.java
-                                ).apply {
-                                    flags =
-                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                })
                         }
 
                         is Result.Success.Message -> {

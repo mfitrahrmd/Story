@@ -11,7 +11,7 @@ class AuthenticationRepository private constructor(
         return authenticationDataSource.register(user)
     }
 
-    override suspend fun login(userAccount: User.Account): Result<User.Account> {
+    override suspend fun login(userAccount: User.Account): Result<User> {
         return authenticationDataSource.login(userAccount)
     }
 

@@ -20,9 +20,9 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         // Check authentication status
-        val authentication = (application as StoryApplication).applicationContainer.authentication
+        val session = (application as StoryApplication).applicationContainer.session
         lifecycleScope.launch {
-            authentication.getToken().collectLatest {
+            session.getToken().collectLatest {
                 if (it.isNotEmpty()) {
                     // If authenticated, launch HomeActivity
                     startActivity(Intent(this@SplashScreenActivity, StoryActivity::class.java))

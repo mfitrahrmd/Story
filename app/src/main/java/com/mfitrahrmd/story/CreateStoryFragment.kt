@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 
 class CreateStoryFragment(
+    private val name: String?,
     private val onCreateClicked: suspend (Story, Uri) -> Result<Boolean>
 ) : DialogFragment() {
     private var storyImageViewId: Int = View.generateViewId()
@@ -55,6 +56,10 @@ class CreateStoryFragment(
     ): View {
         binding = FragmentCreateStoryBinding.inflate(inflater, container, false)
         with(binding) {
+            userName.text = name
+            Glide.with(requireContext())
+                .load("https://api.dicebear.com/9.x/thumbs/png?seed=$name&backgroundColor=f88c49&randomizeIds=true&mouth=variant2,variant3,variant4,variant5,variant1&shapeColor=f1f4dc,69d2e7,1c799f,0a5b83")
+                .into(userAvatar)
             toolbar.setNavigationOnClickListener {
                 dismiss()
             }

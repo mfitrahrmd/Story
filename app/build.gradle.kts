@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.fragment)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.runtime)

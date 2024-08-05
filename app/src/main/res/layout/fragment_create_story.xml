@@ -81,6 +81,7 @@
                 style="@style/Story.TextInputLayout.OnTertiary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
                 app:hintEnabled="false"
                 app:layout_constraintTop_toBottomOf="@id/user_avatar">
 

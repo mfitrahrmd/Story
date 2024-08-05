@@ -1,13 +1,11 @@
 package com.mfitrahrmd.story.data.entity
 
 import android.content.Context
-import android.location.Geocoder
 import com.mfitrahrmd.story.R
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.Locale
 
 data class Story(
     val id: String,

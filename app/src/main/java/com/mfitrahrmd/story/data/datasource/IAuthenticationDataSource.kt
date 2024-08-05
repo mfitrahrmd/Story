@@ -5,5 +5,5 @@ import com.mfitrahrmd.story.data.entity.User
 
 interface IAuthenticationDataSource {
     suspend fun register(user: User): Result<Boolean>
-    suspend fun login(userAccount: User.Account): Result<User.Account>
+    suspend fun login(userAccount: User.Account): Result<User>
 }

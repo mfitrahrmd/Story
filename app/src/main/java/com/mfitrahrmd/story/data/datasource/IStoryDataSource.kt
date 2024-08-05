@@ -8,6 +8,12 @@ import java.io.File
 interface IStoryDataSource {
     suspend fun createStory(story: Story, photo: File): Result<Boolean>
     suspend fun createStory(token: String, story: Story, photo: File): Result<Boolean>
-    suspend fun getAllStories(token: String, page: Int?, size: Int?, location: Boolean?): Result<List<RemoteStory>>
+    suspend fun getAllStories(
+        token: String,
+        page: Int?,
+        size: Int?,
+        location: Boolean?
+    ): Result<List<RemoteStory>>
+
     suspend fun getDetailStory(token: String, storyId: String): Result<RemoteStory>
 }

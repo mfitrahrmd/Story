@@ -18,7 +18,11 @@ class StoryRepository private constructor(
         return storyDataSource.createStory(story, imageFile)
     }
 
-    override suspend fun createStory(token: String, story: Story, imageFile: File): Result<Boolean> {
+    override suspend fun createStory(
+        token: String,
+        story: Story,
+        imageFile: File
+    ): Result<Boolean> {
         return storyDataSource.createStory(token, story, imageFile)
     }
 
@@ -40,7 +44,11 @@ class StoryRepository private constructor(
 
     override suspend fun getDetailStory(token: String, storyId: String): Result<Story> {
         return when (val result = storyDataSource.getDetailStory(token, storyId)) { // type mismatch
-            is Result.Success.WithData -> Result.Success.WithData(result.message, result.data.toStory())
+            is Result.Success.WithData -> Result.Success.WithData(
+                result.message,
+                result.data.toStory()
+            )
+
             is Result.Success.Message -> result
             is Result.Failed -> result
         }

@@ -31,10 +31,17 @@ object ImageProvider {
                 contentValues
             )
         } else {
-            val imageFile = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "/$directoryName$fileName$fileExtension")
+            val imageFile = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                "/$directoryName$fileName$fileExtension"
+            )
             if (imageFile.parentFile?.exists() == false) imageFile.parentFile?.mkdir()
 
-            FileProvider.getUriForFile(context, "${BuildConfig.APPLICATION_ID}.fileprovider", imageFile)
+            FileProvider.getUriForFile(
+                context,
+                "${BuildConfig.APPLICATION_ID}.fileprovider",
+                imageFile
+            )
         }
     }
 

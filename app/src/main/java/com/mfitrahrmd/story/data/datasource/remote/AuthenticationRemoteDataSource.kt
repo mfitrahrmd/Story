@@ -21,17 +21,21 @@ class AuthenticationRemoteDataSource private constructor(
         }
     }
 
-    override suspend fun login(userAccount: User.Account): Result<User.Account> {
+    override suspend fun login(userAccount: User.Account): Result<User> {
         val result = remoteService.authenticationService.login(userAccount.toLoginRequest())
         return when (result) {
             is NetworkResponse.ApiError -> Result.Failed.ApiError(result.body.message)
             is NetworkResponse.NetworkError -> Result.Failed.NetworkError(result.error.message.orEmpty())
             is NetworkResponse.Success -> Result.Success.WithData(
                 result.body.message,
-                User.Account(
-                    userAccount.email,
-                    userAccount.password,
-                    result.body.loginResult.token
+                User(
+                    result.body.loginResult.userId,
+                    result.body.loginResult.name,
+                    User.Account(
+                        userAccount.email,
+                        userAccount.password,
+                        result.body.loginResult.token
+                    )
                 )
             )
 

@@ -57,7 +57,7 @@ internal class NetworkResponseCall<S : Any, E : Any>(
             }
 
             override fun onFailure(call: Call<S>, t: Throwable) {
-                val networkResponse = when(t) {
+                val networkResponse = when (t) {
                     is IOException -> NetworkResponse.NetworkError(t)
                     else -> NetworkResponse.UnknownError(t)
                 }
@@ -69,7 +69,8 @@ internal class NetworkResponseCall<S : Any, E : Any>(
         })
     }
 
-    override fun clone(): Call<NetworkResponse<S, E>> = NetworkResponseCall(delegate.clone(), errorConverter)
+    override fun clone(): Call<NetworkResponse<S, E>> =
+        NetworkResponseCall(delegate.clone(), errorConverter)
 
     override fun execute(): Response<NetworkResponse<S, E>> {
         throw UnsupportedOperationException("NetworkResponseCall doesn't support execute")

@@ -1,6 +1,8 @@
 package com.mfitrahrmd.component
 
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.core.widget.addTextChangedListener
 import com.google.android.material.textfield.TextInputEditText
@@ -35,8 +37,11 @@ class MyTextInputEditText @JvmOverloads constructor(
         } finally {
             arr.recycle()
         }
-        addTextChangedListener { editable ->
-            validate(editable.toString())
+        addTextChangedListener {
+            val parent = parent.parent
+            if (parent !is TextInputLayout) throw TypeCastException()
+            parent.error = null
+            validate(it.toString())
         }
     }
 

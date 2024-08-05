@@ -3,8 +3,8 @@ package com.mfitrahrmd.story
 import android.content.Context
 import com.mfitrahrmd.story.data.datasource.IAuthenticationDataSource
 import com.mfitrahrmd.story.data.datasource.IStoryDataSource
-import com.mfitrahrmd.story.data.datasource.datastore.AuthenticationDataStoreDataSource
-import com.mfitrahrmd.story.data.datasource.datastore.authenticationDataStore
+import com.mfitrahrmd.story.data.datasource.datastore.SessionDataStoreDataSource
+import com.mfitrahrmd.story.data.datasource.datastore.sessionDataStore
 import com.mfitrahrmd.story.data.datasource.remote.AuthenticationRemoteDataSource
 import com.mfitrahrmd.story.data.datasource.remote.StoryRemoteDataSource
 import com.mfitrahrmd.story.data.datasource.remote.services.RemoteService
@@ -40,7 +40,7 @@ class ApplicationContainer(
     override val storyRepository: IStoryRepository by lazy {
         StoryRepository.getInstance(storyRemoteDataSource)
     }
-    override val authentication: AuthenticationDataStoreDataSource by lazy {
-        AuthenticationDataStoreDataSource.getInstance(context.authenticationDataStore)
+    override val session: SessionDataStoreDataSource by lazy {
+        SessionDataStoreDataSource.getInstance(context.sessionDataStore)
     }
 }

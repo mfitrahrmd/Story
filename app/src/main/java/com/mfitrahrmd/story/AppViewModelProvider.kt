@@ -10,7 +10,13 @@ object AppViewModelProvider {
         initializer {
             StoryViewModel(
                 storyApplication().applicationContainer.storyRepository,
-                storyApplication().applicationContainer.authentication,
+                storyApplication().applicationContainer.session,
+            )
+        }
+        initializer {
+            MainViewModel(
+                storyApplication().applicationContainer.authenticationRepository,
+                storyApplication().applicationContainer.session,
             )
         }
     }
