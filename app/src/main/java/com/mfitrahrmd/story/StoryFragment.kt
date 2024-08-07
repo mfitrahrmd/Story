@@ -21,8 +21,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
 
-// TODO : fix not scrolling on top after refresh
-
 class StoryFragment : Fragment() {
     private lateinit var binding: FragmentStoryBinding
     private val activityViewModel: StoryViewModel by activityViewModels {
@@ -33,8 +31,7 @@ class StoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().supportFragmentManager.setFragmentResultListener(
-            CreateStoryFragment.REQUEST_KEY,
-            this
+            CreateStoryFragment.REQUEST_KEY, this
         ) { requestKey, bundle ->
             val message = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 bundle.getParcelable(
@@ -55,8 +52,7 @@ class StoryFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentStoryBinding.inflate(layoutInflater, container, false)
         storyAdapter = StoryAdapter(requireContext())
@@ -68,25 +64,19 @@ class StoryFragment : Fragment() {
         with(binding) {
             swipeToRefresh.setOnRefreshListener {
                 activityViewModel.refresh()
-                with(binding) {
-                    listStory.scrollToPosition(0)
-                }
             }
             listStory.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = storyAdapter
-                addItemDecoration(
-                    DividerItemDecoration(
-                        requireContext(),
-                        LinearLayoutManager.VERTICAL
-                    ).apply {
-                        setDrawable(
-                            ContextCompat.getDrawable(
-                                requireContext(),
-                                R.drawable.empty_divier
-                            )!!
-                        )
-                    })
+                addItemDecoration(DividerItemDecoration(
+                    requireContext(), LinearLayoutManager.VERTICAL
+                ).apply {
+                    setDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(), R.drawable.empty_divier
+                        )!!
+                    )
+                })
             }
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
@@ -97,11 +87,12 @@ class StoryFragment : Fragment() {
             }
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    storyAdapter.loadStateFlow
-                        .distinctUntilChangedBy {
+                    storyAdapter.loadStateFlow.distinctUntilChangedBy {
                             it.refresh
-                        }
-                        .collectLatest {
+                        }.collectLatest {
+                            if (it.refresh is LoadState.NotLoading && it.prepend.endOfPaginationReached) {
+                                binding.listStory.scrollToPosition(0)
+                            }
                             swipeToRefresh.isRefreshing = it.refresh is LoadState.Loading
                         }
                 }
