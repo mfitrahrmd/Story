@@ -56,6 +56,7 @@ class StoryFragment : Fragment() {
     ): View {
         binding = FragmentStoryBinding.inflate(layoutInflater, container, false)
         storyAdapter = StoryAdapter(requireContext())
+
         return binding.root
     }
 

@@ -120,13 +120,12 @@ class StoryActivity : AppCompatActivity() {
 
     private fun observe() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.session.getToken().collectLatest {
-                    if (it.isEmpty()) {
-                        startActivity(Intent(this@StoryActivity, MainActivity::class.java).apply {
-                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        })
-                    }
+            viewModel.session.getToken().collectLatest {
+                if (it.isEmpty()) {
+                    startActivity(Intent(this@StoryActivity, MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    })
+                    finish()
                 }
             }
         }
