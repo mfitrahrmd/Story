@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -57,11 +58,7 @@ class StoryActivity : AppCompatActivity() {
         }
         setContentView(activityStoryBinding.root)
         setSupportActionBar(activityStoryBinding.toolbar)
-        with(activityStoryBinding) {
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-            bottomNavigation.setupWithNavController(navHostFragment.navController)
-        }
+        setupBottomNavigation()
         setupBtnCreateStory()
     }
 
@@ -92,6 +89,30 @@ class StoryActivity : AppCompatActivity() {
             }
             .create()
             .show()
+    }
+
+    private fun setupBottomNavigation() {
+        with(activityStoryBinding) {
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+            bottomNavigation.setupWithNavController(navHostFragment.navController)
+            navHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
+                when (destination.id) {
+                    R.id.profile -> {
+                        with(activityStoryBinding) {
+                            bottomBar.visibility = View.GONE
+                            btnCreateStory.visibility = View.GONE
+                        }
+                    }
+                    else -> {
+                        with(activityStoryBinding) {
+                            bottomBar.visibility = View.VISIBLE
+                            btnCreateStory.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupBtnCreateStory() {
