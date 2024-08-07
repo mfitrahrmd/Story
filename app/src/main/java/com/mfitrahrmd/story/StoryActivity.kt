@@ -57,7 +57,6 @@ class StoryActivity : AppCompatActivity() {
             activityStoryBinding = ActivityStoryBinding.inflate(layoutInflater)
         }
         setContentView(activityStoryBinding.root)
-        setSupportActionBar(activityStoryBinding.toolbar)
         setupBottomNavigation()
         setupBtnCreateStory()
     }
