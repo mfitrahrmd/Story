@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +29,6 @@ class StoryActivity : AppCompatActivity() {
     private val viewModel: StoryViewModel by lazy {
         ViewModelProvider(this, AppViewModelProvider.Factory)[StoryViewModel::class.java]
     }
-    private var name: String = ""
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
@@ -97,13 +97,17 @@ class StoryActivity : AppCompatActivity() {
     private fun setupBtnCreateStory() {
         with(activityStoryBinding) {
             btnCreateStory.setOnClickListener {
-                val createStoryFragment = CreateStoryFragment(name) { story, uri ->
-                    viewModel.createStoryAsGuest(
-                        story,
-                        ImageProvider.uriToImageFile(uri, this@StoryActivity)
-                    )
+                lifecycleScope.launch {
+                    viewModel.session.getName().collect { name ->
+                        val createStoryFragment = CreateStoryFragment(name) { story, uri ->
+                            viewModel.createStoryAsGuest(
+                                story,
+                                ImageProvider.uriToImageFile(uri, this@StoryActivity)
+                            )
+                        }
+                        createStoryFragment.show(supportFragmentManager, null)
+                    }
                 }
-                createStoryFragment.show(supportFragmentManager, null)
             }
         }
     }
@@ -123,9 +127,6 @@ class StoryActivity : AppCompatActivity() {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         })
                     }
-                }
-                viewModel.session.getName().collectLatest {
-                    name = it
                 }
             }
         }
