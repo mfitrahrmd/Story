@@ -9,7 +9,11 @@
         android:id="@+id/home"
         android:name="com.mfitrahrmd.story.StoryFragment"
         tools:layout="@layout/fragment_story"
-        android:label="fragment_home" />
+        android:label="fragment_home" >
+        <action
+            android:id="@+id/action_home_to_detail_story"
+            app:destination="@id/detail_story" />
+    </fragment>
     <fragment
         android:id="@+id/profile"
         android:name="com.mfitrahrmd.story.ProfileFragment"
@@ -20,5 +24,14 @@
         android:name="com.mfitrahrmd.story.CreateStoryFragment"
         tools:layout="@layout/fragment_create_story"
         android:label="fragment_create_story" />
+    <fragment
+        android:id="@+id/detail_story"
+        android:name="com.mfitrahrmd.story.DetailStoryFragment"
+        tools:layout="@layout/fragment_detail_story"
+        android:label="fragment_detail_story" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

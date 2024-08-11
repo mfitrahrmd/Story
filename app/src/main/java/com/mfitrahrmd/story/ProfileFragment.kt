@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private val activityViewModel: StoryViewModel by activityViewModels {
+    private val activityViewModel: StoryActivityViewModel by activityViewModels {
         AppViewModelProvider.Factory
     }
 

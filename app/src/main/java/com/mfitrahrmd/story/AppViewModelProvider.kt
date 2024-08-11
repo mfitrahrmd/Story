@@ -8,14 +8,20 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
-            StoryViewModel(
+            StoryActivityViewModel(
                 storyApplication().applicationContainer.storyRepository,
                 storyApplication().applicationContainer.session,
             )
         }
         initializer {
-            MainViewModel(
+            MainActivityViewModel(
                 storyApplication().applicationContainer.authenticationRepository,
+                storyApplication().applicationContainer.session,
+            )
+        }
+        initializer {
+            DetailStoryViewModel(
+                storyApplication().applicationContainer.storyRepository,
                 storyApplication().applicationContainer.session,
             )
         }

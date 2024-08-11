@@ -6,7 +6,7 @@ import com.mfitrahrmd.story.data.datasource.datastore.SessionDataStoreDataSource
 import com.mfitrahrmd.story.data.entity.User
 import com.mfitrahrmd.story.data.repository.IAuthenticationRepository
 
-class MainViewModel(
+class MainActivityViewModel(
     private val authenticationRepository: IAuthenticationRepository,
     val session: SessionDataStoreDataSource
 ) : ViewModel() {

@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this, AppViewModelProvider.Factory)[MainViewModel::class.java]
+    private val viewModel: MainActivityViewModel by lazy {
+        ViewModelProvider(this, AppViewModelProvider.Factory)[MainActivityViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

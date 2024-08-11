@@ -21,12 +21,23 @@ import java.util.Locale
 
 class StoryAdapter(
     private val context: Context,
+    private val listener: OnItemClickListener
 ) : PagingDataAdapter<Story, StoryAdapter.StoryViewHolder>(StoryDiff) {
     private lateinit var locationHandler: LocationHandler
 
     inner class StoryViewHolder(
         private val viewBinding: ItemStoryBinding
-    ) : RecyclerView.ViewHolder(viewBinding.root) {
+    ) : RecyclerView.ViewHolder(viewBinding.root), View.OnClickListener {
+        init {
+            viewBinding.root.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            getItem(bindingAdapterPosition)?.let {
+                listener.onItemClick(it)
+            }
+        }
+
         fun bind(story: Story?) {
             if (story != null) {
                 with(viewBinding) {
@@ -142,5 +153,9 @@ class StoryAdapter(
                 false
             )
         )
+    }
+
+    fun interface OnItemClickListener {
+        fun onItemClick(story: Story)
     }
 }

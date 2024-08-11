@@ -6,16 +6,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.mfitrahrmd.story.data.util.ImageProvider
@@ -27,8 +24,8 @@ import kotlinx.coroutines.launch
 class StoryActivity : AppCompatActivity() {
     private lateinit var activityStoryBinding: ActivityStoryBinding
     private lateinit var permissionBinding: PermissionBinding
-    private val viewModel: StoryViewModel by lazy {
-        ViewModelProvider(this, AppViewModelProvider.Factory)[StoryViewModel::class.java]
+    private val viewModel: StoryActivityViewModel by lazy {
+        ViewModelProvider(this, AppViewModelProvider.Factory)[StoryActivityViewModel::class.java]
     }
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->

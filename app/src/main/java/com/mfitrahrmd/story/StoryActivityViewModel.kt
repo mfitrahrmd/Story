@@ -1,5 +1,6 @@
 package com.mfitrahrmd.story
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -8,30 +9,31 @@ import com.mfitrahrmd.story.data.Result
 import com.mfitrahrmd.story.data.datasource.datastore.SessionDataStoreDataSource
 import com.mfitrahrmd.story.data.entity.Story
 import com.mfitrahrmd.story.data.repository.IStoryRepository
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.launch
 import java.io.File
 
-class StoryViewModel(
+class StoryActivityViewModel(
     private val storyRepository: IStoryRepository,
     val session: SessionDataStoreDataSource
 ) : ViewModel() {
-    private val refreshTriggerChan = Channel<Unit>(Channel.CONFLATED)
+    private val _storyPagingDataFlow: MutableStateFlow<PagingData<Story>> = MutableStateFlow(PagingData.empty())
+    val storyPagingDataFlow: StateFlow<PagingData<Story>>
+        get() = _storyPagingDataFlow
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val storyPagingDataFlow: Flow<PagingData<Story>> =
-        refreshTriggerChan.receiveAsFlow().combine(session.getToken()) { _, token ->
-            storyRepository.getStoryPages(token, null, null, null).cachedIn(viewModelScope)
-        }.flatMapLatest { it }
+    init {
+        refresh()
+    }
 
     fun refresh() {
         viewModelScope.launch {
-            refreshTriggerChan.send(Unit)
+            session.getToken().collectLatest { token ->
+                val storyPaging = storyRepository.getStoryPages(token, null, null, null).cachedIn(viewModelScope)
+                _storyPagingDataFlow.emitAll(storyPaging)
+            }
         }
     }
 
