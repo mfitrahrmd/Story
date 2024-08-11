@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
     id("kotlin-parcelize")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -43,8 +45,19 @@ android {
     }
 }
 
+secrets {
+    propertiesFileName = "secrets.properties"
+
+    defaultPropertiesFileName = "secrets.defaults.properties"
+
+    ignoreList.add("keyToIgnore")
+    ignoreList.add("sdk.*")
+}
+
 dependencies {
     implementation(project(":component"))
+    implementation(libs.places)
+    implementation(platform(libs.kotlin.bom))
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.camera.camera2)
     implementation(libs.camera.lifecycle)
